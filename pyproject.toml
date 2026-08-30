@@ -1,0 +1,88 @@
+[project]
+name = "cinema-city"
+version = "9.7.2"
+description = "Cinema booking project with production-style structure, Provider-independent, and CLI, Web, JSON, and Neon adapters"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "alembic>=1.19.1",
+    "fastapi>=0.141.1",
+    "filelock>=3.16,<4",
+    "httpx>=0.28.1",
+    "platformdirs>=4,<5",
+    "psycopg[binary]>=3.3.4",
+    "pydantic-settings>=2.15.0",
+    "pyjwt[crypto]>=2.13.0",
+    "sqlalchemy>=2.0.52",
+    "uvicorn[standard]>=0.52.4",
+]
+
+[project.scripts]
+cinema-manager = "cinema.cli.manager_cli:main"
+cinema-customer = "cinema.cli.customer_cli:main"
+cinema-web = "cinema.web.app:main"
+cinema-customer-web = "cinema.web.app:customer_main"
+cinema-manager-web = "cinema.web.app:manager_main"
+cinema-db-init = "cinema.db_init:main"
+
+[dependency-groups]
+dev = [
+    "mypy>=1.17.0",
+    "pylint>=3.3.0",
+    "pytest>=9.1.1",
+    "pytest-cov>=7.1.0",
+    "ruff>=0.12.0",
+]
+
+[tool.uv]
+package = true
+
+[tool.setuptools.package-data]
+cinema = ["web/static/*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src"]
+addopts = "-v --cov=cinema --cov-report=term-missing --cov-fail-under=90"
+
+[tool.ruff]
+line-length = 100
+target-version = "py312"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B"]
+ignore = []
+
+[tool.mypy]
+python_version = "3.12"
+files = ["src", "tests"]
+strict = true
+ignore_missing_imports = true
+disallow_untyped_defs = true
+
+[tool.pylint.main]
+py-version = "3.12"
+source-roots = ["src"]
+fail-under = 9.0
+persistent = false
+
+[tool.pylint.format]
+max-line-length = 100
+
+[tool.pylint.messages_control]
+disable = [
+    "arguments-renamed",
+    "missing-class-docstring",
+    "missing-function-docstring",
+    "protected-access",
+    "redefined-outer-name",
+    "too-few-public-methods",
+    "too-many-arguments",
+    "too-many-instance-attributes",
+    "too-many-locals",
+    "too-many-positional-arguments",
+    "try-except-raise",
+]
+
+[tool.pylint.similarities]
+min-similarity-lines = 12

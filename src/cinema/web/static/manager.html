@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="ממשק ניהול מאובטח לסינמה סיטי">
+    <title>Cinema City - ניהול</title>
+    <link rel="stylesheet" href="/assets/styles.css">
+    <script type="module" src="/assets/manager.js"></script>
+    <link rel="icon" href="/assets/favicon.ico" sizes="any">
+  </head>
+  <body>
+    <header class="site-header">
+      <a class="brand" href="/manager">Cinema City / ניהול</a>
+      <div id="auth-controls" class="auth-controls" aria-live="polite"></div>
+    </header>
+    <main>
+      <section class="hero compact">
+        <p class="eyebrow">מרכז הבקרה</p>
+        <h1>סרטים, הקרנות ונתונים</h1>
+        <p>כל פעולה רגישה נבדקת מחדש בשרת.</p>
+      </section>
+      <p id="status" class="status" role="status"></p>
+      <section class="manager-grid">
+        <form id="movie-form" class="panel form-panel">
+          <h2>הוספת סרט</h2>
+          <label>שם הסרט <input name="title" required maxlength="200"></label>
+          <label>משך בדקות <input name="duration_minutes" type="number" min="1" max="240" required></label>
+          <label>תיאור <textarea name="description" required maxlength="300"></textarea></label>
+          <label>ז'אנר
+            <select name="genre" required>
+              <option value="comedy">קומדיה</option><option value="drama">דרמה</option>
+              <option value="thriller">מתח</option><option value="crime">פשע</option>
+              <option value="family">משפחה</option>
+            </select>
+          </label>
+          <label>מחיר כרטיס <input name="ticket_price" type="number" min="1" max="99" value="40" required></label>
+          <button class="button" type="submit">הוספת סרט</button>
+        </form>
+        <form id="schedule-form" class="panel form-panel">
+          <h2>תזמון הקרנות</h2>
+          <label>סרט <select id="movie-select" name="movie_id" required></select></label>
+          <label>תאריך <input name="screening_date" type="date" required></label>
+          <label>אולם
+            <select name="hall_id"><option value="">כל האולמות</option><option value="1">אולם 1</option><option value="2">אולם 2</option><option value="3">אולם 3</option></select>
+          </label>
+          <label>הקרנות לאולם <input name="shows_count" type="number" min="1" max="10" value="3" required></label>
+          <button class="button" type="submit">יצירת לוח הקרנות</button>
+        </form>
+      </section>
+      
+    <section class="panel schedule-view">
+      <div class="panel-heading">
+        <div>
+          <h2>לוח הקרנות לשבוע הקרוב</h2>
+          <p>הקרנות עתידיות לפי תאריך ושעה</p>
+        </div>
+
+        <div class="schedule-toolbar">
+          <label for="schedule-hall-filter">אולם</label>
+
+          <select id="schedule-hall-filter">
+            <option value="">כל האולמות</option>
+            <option value="1">אולם 1</option>
+            <option value="2">אולם 2</option>
+            <option value="3">אולם 3</option>
+          </select>
+
+          <button id="load-schedule"
+                  class="button secondary"
+                  type="button">
+            הצגת הלוח
+          </button>
+        </div>
+      </div>
+
+      <div id="schedule-results"
+           class="schedule-list"
+           aria-live="polite"></div>
+    </section>
+
+      <section class="panel report-panel">
+        <div class="panel-heading"><h2>דו"ח מצב</h2><button id="refresh-report" class="button secondary" type="button">רענון</button></div>
+        <div id="report" class="report-grid"></div>
+      </section>
+    </main>
+  </body>
+</html>

@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="הזמנת כרטיסים מאובטחת לסינמה סיטי">
+    <title>Cinema City - הזמנת כרטיסים</title>
+    <link rel="stylesheet" href="/assets/styles.css">
+    <script type="module" src="/assets/customer.js"></script>
+    <link rel="icon" href="/assets/favicon.ico" sizes="any">
+  </head>
+  <body>
+    <header class="site-header">
+      <a class="brand" href="/">Cinema City</a>
+      <div id="auth-controls" class="auth-controls" aria-live="polite"></div>
+    </header>
+    <main>
+      <section class="hero">
+        <p class="eyebrow">הסרט הבא מתחיל כאן</p>
+        <h1>בוחרים סרט. בוחרים מושבים. נכנסים.</h1>
+        <p>הקרנות לשבעת הימים הקרובים, עם זמינות מושבים בזמן אמת.</p>
+      </section>
+      <section class="toolbar" aria-label="סינון הקרנות">
+        <label for="genre">ז'אנר</label>
+        <select id="genre">
+          <option value="">כל הז'אנרים</option>
+          <option value="comedy">קומדיה</option>
+          <option value="drama">דרמה</option>
+          <option value="thriller">מתח</option>
+          <option value="crime">פשע</option>
+          <option value="family">משפחה</option>
+        </select>
+        <button id="my-bookings" class="button secondary" type="button">ההזמנות שלי</button>
+      </section>
+      <p id="status" class="status" role="status"></p>
+      <section id="bookings-panel" class="panel hidden" aria-labelledby="bookings-title">
+        <div class="panel-heading">
+          <h2 id="bookings-title">ההזמנות שלי</h2>
+          <button id="close-bookings" class="icon-button" type="button" aria-label="סגירה">×</button>
+        </div>
+        <div id="bookings-list" class="booking-list"></div>
+      </section>
+      <section id="shows" class="card-grid" aria-label="הקרנות"></section>
+      <section id="booking-panel" class="panel hidden" aria-labelledby="booking-title">
+        <div class="panel-heading">
+          <div>
+            <p class="eyebrow">בחירת מושבים</p>
+            <h2 id="booking-title">בחרו עד חמישה מושבים סמוכים</h2>
+          </div>
+          <button id="close-panel" class="icon-button" type="button" aria-label="סגירה">×</button>
+        </div>
+        <div class="screen" aria-hidden="true">מסך</div>
+        <div id="seat-map" class="seat-map"></div>
+        <div class="booking-summary">
+          <span id="selection-summary">לא נבחרו מושבים</span>
+          <button id="confirm-booking" class="button" type="button" disabled>אישור הזמנה</button>
+        </div>
+      </section>                                                                                
+    </main>
+  </body>
+</html>
