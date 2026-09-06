@@ -36,6 +36,7 @@ dev = [
 
 [tool.uv]
 package = true
+exclude-newer = "1 week"
 
 [tool.setuptools.package-data]
 cinema = ["web/static/*"]
