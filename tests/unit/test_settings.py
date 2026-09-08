@@ -23,6 +23,31 @@ def test_loads_environment_specific_dotenv(tmp_path: Path, monkeypatch: pytest.M
     assert settings.app_env is AppEnvironment.LOCAL
 
 
+def test_loads_repo_style_non_dotted_environment_files(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    monkeypatch.chdir(tmp_path)
+    (tmp_path / "env.development").write_text(
+        "APP_ENV=development\n"
+        "AUTH_ENABLED=true\n"
+        "AUTH_PROVIDER=clerk\n"
+        "CLERK_PUBLISHABLE_KEY=pk_test\n"
+        "CLERK_SECRET_KEY=sk_test\n"
+        "CLERK_ISSUER=https://issuer.example.com\n"
+        "CLERK_JWKS_URL=https://issuer.example.com/.well-known/jwks.json\n"
+        "CLERK_FRONTEND_API_URL=https://example.com\n"
+        "CLERK_AUTHORIZED_PARTIES=https://example.com\n",
+        encoding="utf-8",
+    )
+
+    settings = load_settings("development")
+
+    assert settings.app_env is AppEnvironment.DEVELOPMENT
+    assert settings.auth_enabled is True
+    assert settings.auth_provider is AuthProvider.CLERK
+    assert settings.clerk_publishable_key == "pk_test"
+
+
 def test_settings_reject_inconsistent_auth_and_missing_neon_url() -> None:
     with pytest.raises(ValueError, match="AUTH_ENABLED"):
         Settings(auth_enabled=True, auth_provider=AuthProvider.NONE)

@@ -40,6 +40,9 @@ jobs:
 
       - name: Ruff format check
         run: uv run ruff format --check .
+      
+      - name: Run Bandit (Security scan)
+        run: uvx bandit -ll -r . -x tests,venv,.venv
 
   package:
     needs: quality

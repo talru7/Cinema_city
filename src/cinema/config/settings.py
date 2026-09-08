@@ -51,6 +51,7 @@ class Settings(BaseSettings):
         case_sensitive=False,
         extra="ignore",
         env_file_encoding="utf-8",
+        env_file_override=True,
     )
 
     app_env: AppEnvironment = AppEnvironment.LOCAL
@@ -129,9 +130,13 @@ def load_settings(environment: str | None = None) -> Settings:
     """Load base and environment-specific dotenv files exactly once."""
     app_env = environment or os.environ.get("APP_ENV", AppEnvironment.LOCAL.value)
     current = Path.cwd()
-    env_files = tuple(
-        path for path in (current / ".env", current / f".env.{app_env}") if path.exists()
+    candidate_paths = (
+        current / ".env",
+        current / "env",
+        current / f".env.{app_env}",
+        current / f"env.{app_env}",
     )
+    env_files = tuple(path for path in candidate_paths if path.exists())
     try:
         settings_factory = cast(Any, Settings)
         return cast(Settings, settings_factory(_env_file=env_files or None))
