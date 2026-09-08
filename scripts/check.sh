@@ -27,6 +27,8 @@ run_check "ruff check" uv run ruff check .
 run_check "mypy" uv run mypy
 run_check "pylint" uv run pylint --fail-under=9.0 src tests
 run_check "ruff format" uv run ruff format --check .
+run_check "bandit scan" uvx bandit -ll -r . -x tests,venv,.venv
+run_check "vulture scan" uv run --preview-features malware-check vulture . --min-confidence 100 --exclude "*/.venv/*"
 
 echo
 echo "All checks passed successfully."
