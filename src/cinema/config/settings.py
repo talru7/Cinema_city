@@ -51,7 +51,6 @@ class Settings(BaseSettings):
         case_sensitive=False,
         extra="ignore",
         env_file_encoding="utf-8",
-        env_file_override=True,
     )
 
     app_env: AppEnvironment = AppEnvironment.LOCAL
