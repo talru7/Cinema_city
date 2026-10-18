@@ -6,7 +6,7 @@ COPY pyproject.toml uv.lock README.md ./
 COPY alembic.ini ./
 COPY database ./database
 COPY src ./src
-RUN uv sync --frozen --no-dev
+RUN uv sync --frozen --no-dev --no-editable
 
 FROM python:3.12-slim-bookworm AS runtime
 RUN useradd --create-home --uid 10001 cinema
